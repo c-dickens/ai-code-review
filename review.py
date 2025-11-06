@@ -22,7 +22,11 @@ def get_pr_diff():
 
 def review_with_llm(diff_text):
     """Send diff to Amazon Bedrock for review"""
-    bedrock = boto3.client('bedrock-runtime', region_name='us-east-1')
+    bedrock = boto3.client('bedrock-runtime', region_name=os.getenv('AWS_REGION', 'us-east-1'))
+    
+    # Use inference profile or cross-region inference ID
+    # Example: "us.anthropic.claude-3-5-sonnet-20241022-v2:0" for cross-region
+    # or "arn:aws:bedrock:us-east-1:123456789:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
     
     prompt = f"""You are an expert code reviewer. Analyze this Git diff and provide a thorough code review.
 
