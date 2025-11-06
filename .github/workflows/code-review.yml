@@ -19,7 +19,9 @@ jobs:
         run: uv python install 3.13
       
       - name: Install dependencies
-        run: uv add boto3 requests python-dotenv
+        run: |
+          uv init --no-readme --no-package
+          uv add boto3 requests python-dotenv
       
       - name: Run AI Review
         env:
